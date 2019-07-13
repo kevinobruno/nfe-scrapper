@@ -5,6 +5,8 @@ getProducts = (nfc) => {
   const products = [];
   const nfcProducts = nfc.find('> tr:nth-child(3) > td > table > tbody');
 
+  if (!nfcProducts) throw new Error('HTML object doesn\'t have products info');
+
   let i = 2;
   let product = nfcProducts.find(`> tr:nth-child(${i})`);
 
@@ -28,6 +30,8 @@ getMarketInfo = (nfc) => {
   const name = nfc.find('> tr:nth-child(1) > td > table:nth-child(1) > tbody > tr:nth-child(1) > td:nth-child(2)').text();
   const address = nfc.find('> tr:nth-child(1) > td > table:nth-child(2) > tbody > tr > td').text();
 
+  if (!name || !address) throw new Error('HTML object doesn\'t have market info');
+
   const regex = /^(.*),(.*),(.*),(.*),(.*),(.*)/gm;
   const appliedRegex = regex.exec(address.replace(/\s/g,''));
   const street = /^(.*),/.exec(address)[1];
@@ -50,6 +54,8 @@ getInvoiceInfo = (nfc) => {
   const invoice = nfc.find('tr:nth-child(5) > td > table > tbody');
   const generalInfo = invoice.find('> tr:nth-child(2) > td').text().replace(/\s/g,'');
 
+  if (!invoice || !generalInfo) throw new Error('HTML object doesn\'t have invoice info');
+
   const regex = /^Número\:(.*)Série\:(.*)DatadeEmissão\:(.*)-/gm;
   const appliedRegex = regex.exec(generalInfo);
   const number = appliedRegex[1];
@@ -71,12 +77,16 @@ module.exports  = (url) => {
       const $ = cheerio.load(body);    
       const nfc = $('table').find('#tbLeiauteDANFENFCe > tbody > tr > td > table > tbody');
 
-      resolve({
-        totalValue: parseFloat(getTotalValue(nfc).replace(',', '.')),
-        invoice: getInvoiceInfo(nfc),
-        market: getMarketInfo(nfc),
-        products: getProducts(nfc),
-      });
+      try {
+        const totalValue = parseFloat(getTotalValue(nfc).replace(',', '.'));
+        const invoice = getInvoiceInfo(nfc);
+        const market = getMarketInfo(nfc);
+        const products = getProducts(nfc);
+
+        resolve({ totalValue, invoice, market, products });
+      } catch (err) {
+        return reject(err);
+      }
     });
   });
 };;
