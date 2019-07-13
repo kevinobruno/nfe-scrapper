@@ -25,7 +25,7 @@ describe('given: scrapper', () => {
     });
   });
 
-  describe('when: url provided url don\'t exists', () => {
+  describe('when: url provided don\'t exists', () => {
     test('then: it should not scrap the page', async () => {
       const url = 'https://sistemas.sefaz.a.gov.br';
 
