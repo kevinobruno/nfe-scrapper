@@ -11,9 +11,9 @@ getProducts = (nfc) => {
   do {
     const code = product.find('> td:nth-child(1)').text();
     const description = product.find('> td:nth-child(2)').text();
-    const quantity = product.find('> td:nth-child(3)').text();
-    const unitValue = product.find('> td:nth-child(5)').text();
-    const totalValue = product.find('> td:nth-child(6)').text();
+    const quantity = parseInt(product.find('> td:nth-child(3)').text());
+    const unitValue = parseFloat(product.find('> td:nth-child(5)').text().replace(',', '.'));
+    const totalValue = parseFloat(product.find('> td:nth-child(6)').text().replace(',', '.'));
 
     products.push({ code, description, quantity, unitValue, totalValue });
 
@@ -39,6 +39,13 @@ getMarketInfo = (nfc) => {
   return { name, address: { street, number, neighborhood, city, state } };
 };
 
+formatIssueDate = (date) => {
+  const regex = /(.*)\/(.*)\/(\d{0,4})(\d{0,2}):(.*):(.*)/;
+  const appliedRegex = regex.exec(date);
+  const [, day, month, year, hours, minutes, seconds] = appliedRegex;
+  return new Date(year, month, day, hours, minutes, seconds, 0);
+};
+
 getInvoiceInfo = (nfc) => {
   const invoice = nfc.find('tr:nth-child(5) > td > table > tbody');
   const generalInfo = invoice.find('> tr:nth-child(2) > td').text().replace(/\s/g,'');
@@ -47,7 +54,7 @@ getInvoiceInfo = (nfc) => {
   const appliedRegex = regex.exec(generalInfo);
   const number = appliedRegex[1];
   const serie = appliedRegex[2];
-  const issueDate = appliedRegex[3];
+  const issueDate = formatIssueDate(appliedRegex[3]);
 
   const accessKey = invoice.find('> tr:nth-child(5) > td').text().replace(/\s/g,'');
 
@@ -65,7 +72,7 @@ module.exports  = (url) => {
       const nfc = $('table').find('#tbLeiauteDANFENFCe > tbody > tr > td > table > tbody');
 
       resolve({
-        totalValue: getTotalValue(nfc),
+        totalValue: parseFloat(getTotalValue(nfc).replace(',', '.')),
         invoice: getInvoiceInfo(nfc),
         market: getMarketInfo(nfc),
         products: getProducts(nfc),
