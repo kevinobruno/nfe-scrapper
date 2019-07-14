@@ -20,6 +20,12 @@ module.exports = {
       description: Sequelize.STRING,
       created_at: Sequelize.DATE,
       updated_at: Sequelize.DATE,
+    }, {
+      uniqueKeys: {
+        actions_unique: {
+          fields: ['code', 'value'],
+        },
+      },
     });
   },
 
