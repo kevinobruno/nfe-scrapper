@@ -3,8 +3,15 @@
 module.exports = (sequelize, DataTypes) => {
   const Invoice = sequelize.define('Invoice', {
     number: DataTypes.STRING,
-    access_key: DataTypes.STRING,
     serie: DataTypes.STRING,
+    accessKey: {
+      type: DataTypes.STRING,
+      field: 'access_key',
+    },
+    issueDate: {
+      type: DataTypes.DATE,
+      field: 'issue_date',
+    },
     createdAt: {
       type: DataTypes.DATE,
       field: 'created_at',
