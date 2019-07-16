@@ -47,11 +47,12 @@ formatIssueDate = (date) => {
   const regex = /(.*)\/(.*)\/(\d{0,4})(\d{0,2}):(.*):(.*)/;
   const appliedRegex = regex.exec(date);
   const [, day, month, year, hours, minutes, seconds] = appliedRegex;
-  return new Date(year, month, day, hours, minutes, seconds, 0);
+  return new Date(`${year}/${month}/${day} ${hours}:${minutes}:${seconds}`);
 };
 
 getInvoiceInfo = (nfc) => {
-  const invoice = nfc.find('tr:nth-child(5) > td > table > tbody');
+  const invoiceIndex = nfc.find('tr:nth-child(5)').text().includes('CONTRIBUINTE') ? 6 : 5;
+  const invoice = nfc.find(`tr:nth-child(${invoiceIndex}) > td > table > tbody`);
   const generalInfo = invoice.find('> tr:nth-child(2) > td').text().replace(/\s/g,'');
 
   if (!invoice || !generalInfo) throw new Error('HTML object doesn\'t have invoice info');

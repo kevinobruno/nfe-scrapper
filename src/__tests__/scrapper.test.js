@@ -1,6 +1,6 @@
 const to = require('await-to-js').default;
 const scrapper = require('../scrapper');
-const expected = require('../__mocks__/scrapper');
+const { additionalInfoInvoice, defaultInvoice } = require('../__mocks__/scrapper');
 
 describe('given: scrapper', () => {
   describe('when: valid invoice url is provided', () => {
@@ -10,7 +10,18 @@ describe('given: scrapper', () => {
       const [err, scrap] = await to(scrapper(url));
 
       expect(err).toBe(null);
-      expect(scrap).toStrictEqual(expected);
+      expect(scrap).toStrictEqual(defaultInvoice);
+    });
+  });
+
+  describe('when: valid invoice url with additional info is provided', () => {
+    test('then: it should scrap the page correctly', async () => {
+      const url = 'http://sistemas.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp?p=13190710713693000113650350004638841567420423|2|1|1|A2520183E9E9FF4F7D1C934B3C3066CD4547CEFC';
+
+      const [err, scrap] = await to(scrapper(url));
+
+      expect(err).toBe(null);
+      expect(scrap).toStrictEqual(additionalInfoInvoice);
     });
   });
 
