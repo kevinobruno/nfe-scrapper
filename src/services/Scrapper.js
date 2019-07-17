@@ -14,10 +14,9 @@ getProducts = (nfc) => {
     const code = product.find('> td:nth-child(1)').text();
     const description = product.find('> td:nth-child(2)').text();
     const quantity = parseInt(product.find('> td:nth-child(3)').text());
-    const unitValue = parseFloat(product.find('> td:nth-child(5)').text().replace(',', '.'));
-    const totalValue = parseFloat(product.find('> td:nth-child(6)').text().replace(',', '.'));
+    const value = parseFloat(product.find('> td:nth-child(5)').text().replace(',', '.'));
 
-    products.push({ code, description, quantity, unitValue, totalValue });
+    products.push({ code, description, quantity, value });
 
     i++;
     product = nfcProducts.find(`> tr:nth-child(${i})`);
@@ -79,12 +78,11 @@ module.exports = (url) => {
       const nfc = $('table').find('#tbLeiauteDANFENFCe > tbody > tr > td > table > tbody');
 
       try {
-        const totalValue = parseFloat(getTotalValue(nfc).replace(',', '.'));
         const invoice = getInvoiceInfo(nfc);
         const market = getMarketInfo(nfc);
         const products = getProducts(nfc);
 
-        resolve({ totalValue, invoice, market, products });
+        resolve({ invoice, market, products });
       } catch (err) {
         return reject(err);
       }
