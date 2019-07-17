@@ -46,7 +46,7 @@ formatIssueDate = (date) => {
   const regex = /(.*)\/(.*)\/(\d{0,4})(\d{0,2}):(.*):(.*)/;
   const appliedRegex = regex.exec(date);
   const [, day, month, year, hours, minutes, seconds] = appliedRegex;
-  return new Date(`${year}/${month}/${day} ${hours}:${minutes}:${seconds}`);
+  return new Date(`${year}/${month}/${day} ${hours}:${minutes}:${seconds}-04:00`);
 };
 
 getInvoiceInfo = (nfc) => {

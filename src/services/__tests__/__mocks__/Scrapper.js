@@ -2,7 +2,7 @@ const defaultInvoice = {
   invoice: {
     number: '144451',
     serie: '10',
-    issueDate: new Date('2019/06/19 15:18:57'),
+    issueDate: new Date('2019/06/19 19:18:57'),
     accessKey: '13190622991939001250650100001444511002312092'
   },
   market: {
@@ -95,7 +95,7 @@ const additionalInfoInvoice = {
   invoice: {
     number: '463884',
     serie: '35',
-    issueDate: new Date('2019/07/16 12:35:31'),
+    issueDate: new Date('2019/07/16 16:35:31'),
     accessKey: '13190710713693000113650350004638841567420423'
   },
   market: {
