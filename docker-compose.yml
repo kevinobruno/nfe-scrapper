@@ -5,11 +5,13 @@ services:
     command: npm run dev
     container_name: nfc_scrapper_node
     environment:
+      - KUE_UI_PORT=12058
       - PORT=3000
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
       - 3031:3000
+      - 3032:12058
     restart: unless-stopped
     volumes:
       - .:/app
