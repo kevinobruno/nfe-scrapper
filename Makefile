@@ -23,7 +23,7 @@ db-drop:
 db-migrate:
 	@docker-compose exec ${SERVICE_NAME} sequelize db:migrate
 
-db-reset: db-drop db-create db-migrate db-seed
+db-reset: db-drop db-create db-migrate
 
 db-rollback:
 	@docker-compose exec ${SERVICE_NAME} sequelize db:migrate:undo

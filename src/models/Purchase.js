@@ -2,16 +2,12 @@
 
 module.exports = (sequelize, DataTypes) => {
   const Purchase = sequelize.define('Purchase', {
-    createdAt: {
+    purchasedAt: {
       type: DataTypes.DATE,
-      field: 'created_at',
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      field: 'updated_at',
+      field: 'purchased_at',
     },
   }, {
-    timestamps: true,
+    timestamps: false,
     underscored: true,
   });
 
