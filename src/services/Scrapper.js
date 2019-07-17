@@ -70,7 +70,7 @@ getInvoiceInfo = (nfc) => {
 
 getTotalValue = (nfc) => nfc.find('> tr:nth-child(4) > td > table > tbody > tr:nth-child(2) > td:nth-child(2)').text();
 
-module.exports  = (url) => {
+module.exports = (url) => {
   return new Promise(function(resolve, reject) {
     request(url, (error, response, body) => {
       if (error) return reject(error);
