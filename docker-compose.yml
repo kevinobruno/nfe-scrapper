@@ -16,8 +16,10 @@ services:
       - /app/node_modules
     depends_on:
       - postgres
+      - redis
     links:
       - postgres
+      - redis
 
   postgres:
     image: postgres:11.2-alpine
@@ -28,6 +30,18 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql
 
+  redis:
+    container_name: nfc_scrapper_redis
+    image: redis:5.0.4-alpine
+    command: --databases 6000
+    ports:
+      - 6381:6379
+    restart: unless-stopped
+    volumes:
+      - redis-data:/var/lib/redis
+
 volumes:
   postgres-data:
+    driver: local
+  redis-data:
     driver: local
