@@ -13,7 +13,7 @@ getProducts = (nfc) => {
   do {
     const code = product.find('> td:nth-child(1)').text();
     const description = product.find('> td:nth-child(2)').text();
-    const quantity = parseInt(product.find('> td:nth-child(3)').text());
+    const quantity = parseFloat(product.find('> td:nth-child(3)').text().replace(',', '.'));
     const value = parseFloat(product.find('> td:nth-child(5)').text().replace(',', '.'));
 
     products.push({ code, description, quantity, value });
