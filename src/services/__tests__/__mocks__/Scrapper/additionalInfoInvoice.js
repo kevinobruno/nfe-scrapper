@@ -21,12 +21,14 @@ module.exports = {
       description: 'MANIA 28 PROMO',
       quantity: 1,
       value: 15.4,
+      unity: 'UN',
     },
     {
       code: 'EX0167',
       description: 'SODA (LATA)',
       quantity: 1,
       value: 5.5,
+      unity: 'UN',
     }
   ]
 };
