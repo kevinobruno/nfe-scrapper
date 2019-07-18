@@ -14,9 +14,10 @@ getProducts = (nfc) => {
     const code = product.find('> td:nth-child(1)').text();
     const description = product.find('> td:nth-child(2)').text();
     const quantity = parseFloat(product.find('> td:nth-child(3)').text().replace(',', '.'));
+    const unity = product.find('> td:nth-child(4)').text();
     const value = parseFloat(product.find('> td:nth-child(5)').text().replace(',', '.'));
 
-    products.push({ code, description, quantity, value });
+    products.push({ code, description, quantity, value, unity });
 
     i++;
     product = nfcProducts.find(`> tr:nth-child(${i})`);
