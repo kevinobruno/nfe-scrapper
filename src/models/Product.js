@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     code: DataTypes.STRING,
     description: DataTypes.STRING,
     value: DataTypes.FLOAT,
+    unity: DataTypes.STRING,
     createdAt: {
       type: DataTypes.DATE,
       field: 'created_at',

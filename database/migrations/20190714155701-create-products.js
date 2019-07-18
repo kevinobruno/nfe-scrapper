@@ -17,6 +17,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.FLOAT,
       },
+      unity: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       description: Sequelize.STRING,
       created_at: Sequelize.DATE,
       updated_at: Sequelize.DATE,
