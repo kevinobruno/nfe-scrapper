@@ -26,7 +26,7 @@ module.exports = {
         },
       },
       quantity: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
     }, {

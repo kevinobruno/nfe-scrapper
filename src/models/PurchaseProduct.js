@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
   const PurchaseProduct = sequelize.define('PurchaseProduct', {
-    quantity: DataTypes.INTEGER,
+    quantity: DataTypes.FLOAT,
   }, {
     timestamps: false,
   });
