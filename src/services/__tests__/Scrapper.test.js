@@ -1,6 +1,6 @@
 const to = require('await-to-js').default;
 const Scrapper = require('../Scrapper');
-const { additionalInfoInvoice, defaultInvoice } = require('./__mocks__/Scrapper');
+const { additionalInfoInvoice, defaultInvoice, priceByWeightInvoice } = require('./__mocks__/Scrapper');
 
 describe('given: scrapper', () => {
   describe('when: valid invoice url is provided', () => {
@@ -22,6 +22,17 @@ describe('given: scrapper', () => {
 
       expect(err).toBe(null);
       expect(scrap).toStrictEqual(additionalInfoInvoice);
+    });
+  });
+
+  describe('when: valid invoice url with products price by weight is provided', () => {
+    test('then: it should scrap the page correctly', async () => {
+      const url = 'https://sistemas.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp?p=13190722991939001250650120002148901003937108|2|1|1|DBF48D387E04049167A63652539B2924E0D3B855';
+
+      const [err, scrap] = await to(Scrapper(url));
+
+      expect(err).toBe(null);
+      expect(scrap).toStrictEqual(priceByWeightInvoice);
     });
   });
 
