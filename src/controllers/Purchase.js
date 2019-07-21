@@ -7,6 +7,13 @@ class PurchaseController {
     const data = Formatter.list(purchases);
     return res.send({ data });
   }
+
+  async details(req, res) {
+    const { purchase_id: purchaseId } = req.params;
+    const purchases = await Purchase.findOne({ where: { id: purchaseId }, include: ['invoice', 'products'] });
+    const data = Formatter.details(purchases);
+    return res.send({ data });
+  }
 }
 
 module.exports = new PurchaseController();
