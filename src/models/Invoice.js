@@ -23,6 +23,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     timestamps: true,
     underscored: true,
+    defaultScope: {
+      attributes: { exclude: ['createdAt', 'updatedAt'] }
+    },
   });
 
   return Invoice;
