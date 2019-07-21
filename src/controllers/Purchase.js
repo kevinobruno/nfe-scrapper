@@ -10,8 +10,8 @@ class PurchaseController {
 
   async details(req, res) {
     const { purchase_id: purchaseId } = req.params;
-    const purchases = await Purchase.findOne({ where: { id: purchaseId }, include: ['invoice', 'products'] });
-    const data = Formatter.details(purchases);
+    const purchase = await Purchase.findOne({ where: { id: purchaseId }, include: ['invoice', 'products'] });
+    const data = Formatter.details(purchase);
     return res.send({ data });
   }
 }
