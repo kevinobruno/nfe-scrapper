@@ -1,9 +1,11 @@
 const { Purchase } = require('../models');
+const { Purchase: Formatter } = require('../formatters');
 
 class PurchaseController {
   async list(req, res) {
     const purchases = await Purchase.findAll({ include: ['invoice', 'products'] });
-    return res.send({ data: purchases });
+    const data = Formatter.list(purchases);
+    return res.send({ data });
   }
 }
 
