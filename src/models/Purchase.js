@@ -22,5 +22,9 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
+  Purchase.prototype.getTotalSpent = (products) => {
+    return parseFloat(products.map(product => product.value * product.quantity).reduce((acc, cur) => acc + cur).toFixed(2));
+  };
+
   return Purchase;
 };

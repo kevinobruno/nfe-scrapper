@@ -1,31 +1,28 @@
 class PurchaseFormatter {
   details(purchase) {
-    const { invoice, products } = purchase;
+    const invoice = {
+      id: purchase.invoice.id,
+      number: purchase.invoice.number,
+      serie: purchase.invoice.serie,
+      accessKey: purchase.invoice.accessKey,
+      issueDate: purchase.invoice.issueDate,
+    };
+  
+    const products = purchase.products.map(product => ({
+      id: product.id,
+      code: product.code,
+      description: product.description,
+      value: product.value,
+      unity: product.unity,
+      quantity: product.PurchaseProduct.quantity,
+    }));
 
     const response = {
       id: purchase.id,
+      totalSpent: purchase.getTotalSpent(products),
       purchasedAt: purchase.purchasedAt,
-    };
-
-    if (invoice) {
-      response.invoice = {
-        id: invoice.id,
-        number: invoice.number,
-        serie: invoice.serie,
-        accessKey: invoice.accessKey,
-        issueDate: invoice.issueDate,
-      };
-    }
-
-    if (products) {
-      response.products = products.map(product => ({
-        id: product.id,
-        code: product.code,
-        description: product.description,
-        value: product.value,
-        unity: product.unity,
-        quantity: product.PurchaseProduct.quantity,
-      }));
+      invoice,
+      products,
     };
 
     return response;
